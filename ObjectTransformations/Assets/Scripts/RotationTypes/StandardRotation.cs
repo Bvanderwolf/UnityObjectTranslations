@@ -2,10 +2,13 @@
 
 public class StandardRotation : Translation, ITranslatable
 {
-    private float rotateSpeed = 1.5f;
+    private const float ROTATESPEED = 1.5f;
     private const float TURN_SPEED_DAMP = 0.015f;
 
     private bool dynamicRotation = false;
+
+    private ObjectUserFeedback feedback;
+    private ObjectNavigation navigation;
 
     public StandardRotation (float _translateSpeed, float _translateTime, Vector3 from) : base(_translateSpeed, _translateTime, from) { }
 
@@ -16,8 +19,13 @@ public class StandardRotation : Translation, ITranslatable
 
         if (_targetTransform != null)
         {
-            ObjectNavigation navigation = _myTransform.GetComponent<ObjectNavigation>();
-            if (dynamicRotation && !navigation.LightsFlickering)
+            if (feedback == null && navigation == null)
+            {
+                feedback = _myTransform.GetComponent<ObjectUserFeedback>();
+                navigation = _myTransform.GetComponent<ObjectNavigation>();
+            }          
+
+            if (dynamicRotation && !feedback.LightsFlickering)
             {
                 Vector3 predictedNewPosition = Vector3.LerpUnclamped(navigation.LastPosition, _myTransform.position, 1.5f);
                 targetDirection = predictedNewPosition - _myTransform.position;
@@ -27,7 +35,7 @@ public class StandardRotation : Translation, ITranslatable
             else
             {
                 targetDirection = _targetTransform.position - _myTransform.position;
-                step = rotateSpeed * Time.deltaTime;
+                step = ROTATESPEED * Time.deltaTime;
             }
             
             Vector3 newDirection = Vector3.RotateTowards(_myTransform.forward, targetDirection, step, 0.0f);
@@ -42,6 +50,8 @@ public class StandardRotation : Translation, ITranslatable
 
     public void Clean ()
     {
+        feedback = null;
+        navigation = null;
     }
 
     public void Init(ObjectNavigation navigation)

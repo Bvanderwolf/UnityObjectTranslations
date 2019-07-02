@@ -1,19 +1,19 @@
-﻿using UnityEngine;
-
-public class ObjectMovement : ObjectTranslation
+﻿public class ObjectMovement : ObjectTranslation
 {  
     private void Start ()
     {
-        navigation = GetComponent<ObjectNavigation>();
+        navigation = GetComponent<ObjectNavigation>();       
         navigation.OnNodeReached += OnNodeReached;
 
+        feedback = GetComponent<ObjectUserFeedback>();
+
         currentTranslateType = new StandardMovement(navigation.ObjectSpeedModifyer, navigation.NodeToNodeTime, navigation.LastTarget.position);
-        navigation.AddFunctionNameToTextMesh(currentTranslateType.CurrentFunctionName() + "\n");
+        feedback.AddFunctionNameToTextMesh(currentTranslateType.CurrentFunctionName() + "\n");
     }
 
     private void FixedUpdate ()
     {
-        if (navigation.LightsFlickering)
+        if (feedback.LightsFlickering)
             return;
 
         navigation.SetLastPosition(this, transform.position);
@@ -23,6 +23,6 @@ public class ObjectMovement : ObjectTranslation
     protected override void OnNodeReached (NodeAttributes node)
     {
         base.OnNodeReached(node);
-        navigation.AddFunctionNameToTextMesh(currentTranslateType.CurrentFunctionName() + "\n");
+        feedback.AddFunctionNameToTextMesh(currentTranslateType.CurrentFunctionName() + "\n");
     }
 }

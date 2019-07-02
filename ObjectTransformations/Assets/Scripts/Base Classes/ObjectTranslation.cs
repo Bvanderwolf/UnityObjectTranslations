@@ -2,7 +2,9 @@
 
 public class ObjectTranslation : MonoBehaviour
 {
-    protected ObjectNavigation navigation = null;    
+    protected ObjectNavigation navigation = null;
+    protected ObjectUserFeedback feedback = null;
+
     protected ITranslatable currentTranslateType = null;
 
     public ObjectNavigation Navigation

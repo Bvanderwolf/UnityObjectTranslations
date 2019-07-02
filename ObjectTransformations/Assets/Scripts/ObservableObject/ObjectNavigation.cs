@@ -19,12 +19,6 @@ public class ObjectNavigation : MonoBehaviour
     [SerializeField]
     private GameObject nodePrefab;
 
-    [SerializeField]
-    private TextMeshProUGUI functionTextMesh;
-
-    [SerializeField] private Transform[] objectLights;
-    [SerializeField] private float lightLerpSpeed;
-
     private bool lightsFlickering;
 
     public delegate void NodeReached (NodeAttributes node);
@@ -41,6 +35,7 @@ public class ObjectNavigation : MonoBehaviour
 
     private Transform lastTarget = null;
     private Vector3 lastPosition;
+    private ObjectUserFeedback feedback;
 
     private const float LASTPOSITIONCHECK = 0.6f;
     private float currentCheckTimer = 0;
@@ -60,11 +55,6 @@ public class ObjectNavigation : MonoBehaviour
     public bool MoveDirectionBasedRotation
     {
         get => moveDirectionBasedRotation;
-    }
-
-    public bool LightsFlickering
-    {
-        get => lightsFlickering;
     }
 
     public Transform MoveTarget
@@ -90,6 +80,7 @@ public class ObjectNavigation : MonoBehaviour
     private void Awake ()
     {
         lastTarget = transform;
+        feedback = GetComponent<ObjectUserFeedback>();
     }
 
     private void FixedUpdate ()
@@ -98,55 +89,10 @@ public class ObjectNavigation : MonoBehaviour
         {
             NodeAttributes nodeReached = moveTarget.GetComponent<NodeAttributes>();
             SetNewTargetBasedOnReachedNode(nodeReached);
-            functionTextMesh.text = "";
+            feedback.ClearFunctionNameText();
             moveDirectionBasedRotation = false;
-            OnNodeReached(nodeReached);
-
-            if (!IsLookingAtTarget && !lightsFlickering)
-            {
-                StartCoroutine(FlickerLights());
-            }
+            OnNodeReached(nodeReached);            
         }       
-    }
-
-    private IEnumerator FlickerLights ()
-    {
-        lightsFlickering = true;
-
-        Renderer[] lightRends = new Renderer[objectLights.Length];
-        Color[] lightColors = new Color[objectLights.Length];
-
-        for (int i = 0; i < lightRends.Length; i++)
-        {
-            lightRends[i] = objectLights[i].GetComponent<Renderer>();
-            lightColors[i] = lightRends[i].material.color;
-        }
-
-        while (!IsLookingAtTarget)
-        {
-            float t = Mathf.PingPong(Time.time * lightLerpSpeed, 1f);
-            for (int i = 0; i < lightRends.Length; i++)
-            {
-                Color lerpCol = Color.Lerp(lightColors[i], Color.red, t);
-                lightRends[i].material.SetColor("_EmissionColor", lerpCol);
-            }
-            yield return new WaitForFixedUpdate();
-        }
-
-        for(int i = 0; i < lightRends.Length; i++)
-        {
-            lightRends[i].material.SetColor("_EmissionColor", lightColors[i]);
-        }
-        lightsFlickering = false;
-    }
-
-    /// <summary>
-    /// Add name of current function to excecute to text mesh on canvas
-    /// </summary>
-    /// <param name="name">name of the function</param>
-    public void AddFunctionNameToTextMesh(string name)
-    {
-        functionTextMesh.text += name;
     }
 
     /// <summary>
@@ -264,10 +210,4 @@ public class ObjectNavigation : MonoBehaviour
         float rdmZ = Random.Range(-functionExcecutionSpace.z, functionExcecutionSpace.z) + _nodePos.z;
         return new Vector3(rdmX, rdmY, rdmZ);
     }
-
-    //private void OnDrawGizmos ()
-    //{
-    //    Gizmos.color = Color.red;        
-    //    Gizmos.DrawLine(transform.position, Vector3.LerpUnclamped(lastPosition, transform.position, 1.5f));
-    //}
 }

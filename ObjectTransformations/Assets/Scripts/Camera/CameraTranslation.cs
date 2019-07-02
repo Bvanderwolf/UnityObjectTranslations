@@ -20,10 +20,7 @@ public class CameraTranslation : MonoBehaviour
     [SerializeField] private float observeSmoothTime;
 
     [SerializeField] private float noSwitchTime;
-    [SerializeField] private bool followMode;
-
-    private bool inRoomConnector = true;
-    private bool noSwitch = false;
+    [SerializeField] private bool followMode;   
 
     private uint switchCount = 0;
     private const uint MAX_SWITCH_COUNT = 5;
@@ -33,6 +30,9 @@ public class CameraTranslation : MonoBehaviour
     private Vector3 currentObservePosition;
 
     private Vector3 currentVelocity;
+
+    public bool NoSwitch { get; private set; } = false;
+    public bool InRoomConnector { get; private set; } = true;
 
     private void Awake ()
     {
@@ -87,14 +87,14 @@ public class CameraTranslation : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(steppedDirection);
         }
 
-        if (noSwitch)
+        if (NoSwitch)
         {
             cooldownTime += Time.deltaTime;
             if (cooldownTime >= noSwitchTime)
             {
                 switchCount = 0;
                 cooldownTime = 0;
-                noSwitch = false;
+                NoSwitch = false;
             }
         }
         else
@@ -113,7 +113,7 @@ public class CameraTranslation : MonoBehaviour
 
     private void Update ()
     {
-        if (!inRoomConnector && !noSwitch && Input.GetKeyDown(KeyCode.S))
+        if (!InRoomConnector && !NoSwitch && Input.GetKeyDown(KeyCode.S))
         {
             SwitchCameraMode();
         }
@@ -121,7 +121,7 @@ public class CameraTranslation : MonoBehaviour
 
     public void SwitchCameraMode ()
     {
-        if (noSwitch || inRoomConnector)
+        if (NoSwitch || InRoomConnector)
             return;
 
         followMode = !followMode;
@@ -129,7 +129,7 @@ public class CameraTranslation : MonoBehaviour
 
         if (switchCount > MAX_SWITCH_COUNT)
         {
-            noSwitch = true;
+            NoSwitch = true;
             cooldownTime = 0;
         }
     }
@@ -138,12 +138,12 @@ public class CameraTranslation : MonoBehaviour
     {
         currentStartnodeIndex++;
         currentObservePosition = GetObservePosition();
-        inRoomConnector = true;
+        InRoomConnector = true;
     }
 
     private void OnStartingRoom ()
     {       
-        inRoomConnector = false;
+        InRoomConnector = false;
     }
 
     /// <summary>

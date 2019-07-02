@@ -805,6 +805,24 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7677397818047613599}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &616155814 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6786445328603187684, guid: e0af0628cd21e5547be8101336fc81f4,
+    type: 3}
+  m_PrefabInstance: {fileID: 8173677011198278370}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &679927786 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 450523658987212897, guid: e0af0628cd21e5547be8101336fc81f4,
+    type: 3}
+  m_PrefabInstance: {fileID: 8173677011198278370}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &721644067
 GameObject:
   m_ObjectHideFlags: 0
@@ -1475,7 +1493,9 @@ MonoBehaviour:
   pause_Button_Sprites:
   - {fileID: 21300000, guid: a34f735516e12ed469b277ff2ea08ae3, type: 3}
   - {fileID: 21300000, guid: 9ea0bad3ece5d354d96f29b80df36787, type: 3}
+  cam_ModeSwitch_Image: {fileID: 2014857635}
   fade_Texture: {fileID: 2097907918}
+  noCamSwitchColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &870545579
 GameObject:
   m_ObjectHideFlags: 0
@@ -1654,8 +1674,8 @@ MonoBehaviour:
   - {fileID: 782091581}
   - {fileID: 520060353}
   - {fileID: 91358399}
-  distanceFactor: 1
-  heightFactor: 0.5
+  distanceFactor: 1.5
+  heightFactor: 0.75
   followSmoothTime: 1.2
   minimalAngle: 0.2
   stepFactor: 0.2
@@ -1988,6 +2008,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1285754992}
   m_CullTransparentMesh: 0
+--- !u!1 &1298237053 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7256426194936497235, guid: e0af0628cd21e5547be8101336fc81f4,
+    type: 3}
+  m_PrefabInstance: {fileID: 8173677011198278370}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1298237054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1298237053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f545c2078a4484448be2553e81a71aaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  functionTextMesh: {fileID: 616155814}
+  objectLights:
+  - {fileID: 2143984097}
+  - {fileID: 679927786}
+  lightLerpSpeed: 3.5
 --- !u!1 &1314040758
 GameObject:
   m_ObjectHideFlags: 0
@@ -3059,6 +3102,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 852928859}
+        m_MethodName: ChangeButtonColor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &2014857635
@@ -3450,6 +3504,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2135019540}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &2143984097 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7657314817677907829, guid: e0af0628cd21e5547be8101336fc81f4,
+    type: 3}
+  m_PrefabInstance: {fileID: 8173677011198278370}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6066968738144326566
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3785,5 +3845,80 @@ PrefabInstance:
       propertyPath: moveTarget
       value: 
       objectReference: {fileID: 782091581}
+    - target: {fileID: 7904820008900996795, guid: e0af0628cd21e5547be8101336fc81f4,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7904820008900996795, guid: e0af0628cd21e5547be8101336fc81f4,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7904820008900996795, guid: e0af0628cd21e5547be8101336fc81f4,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7904820008900996795, guid: e0af0628cd21e5547be8101336fc81f4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7904820008900996795, guid: e0af0628cd21e5547be8101336fc81f4,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7904820008900996795, guid: e0af0628cd21e5547be8101336fc81f4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 4213220376049941989, guid: e0af0628cd21e5547be8101336fc81f4,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4213220376049941989, guid: e0af0628cd21e5547be8101336fc81f4,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4213220376049941989, guid: e0af0628cd21e5547be8101336fc81f4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786445328603187684, guid: e0af0628cd21e5547be8101336fc81f4,
+        type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786445328603187684, guid: e0af0628cd21e5547be8101336fc81f4,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786445328603187684, guid: e0af0628cd21e5547be8101336fc81f4,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786445328603187684, guid: e0af0628cd21e5547be8101336fc81f4,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6786445328603187684, guid: e0af0628cd21e5547be8101336fc81f4,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6953098838451785757, guid: e0af0628cd21e5547be8101336fc81f4,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 963194227}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0af0628cd21e5547be8101336fc81f4, type: 3}
