@@ -1,8 +1,8 @@
 ﻿public class ObjectMovement : ObjectTranslation
-{  
+{
     private void Start ()
     {
-        navigation = GetComponent<ObjectNavigation>();       
+        navigation = GetComponent<ObjectNavigation>();
         navigation.OnNodeReached += OnNodeReached;
 
         feedback = GetComponent<ObjectUserFeedback>();
@@ -16,10 +16,12 @@
         if (feedback.LightsFlickering)
             return;
 
-        navigation.SetLastPosition(this, transform.position);
+        if (navigation.MoveDirectionBasedRotation)
+            navigation.SetLastPosition(this, transform.position);
+
         currentTranslateType.Update(transform, navigation.MoveTarget);
     }
-    
+
     protected override void OnNodeReached (NodeAttributes node)
     {
         base.OnNodeReached(node);
