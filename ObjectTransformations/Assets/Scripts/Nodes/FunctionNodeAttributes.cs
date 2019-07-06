@@ -10,8 +10,6 @@ public class FunctionNodeAttributes : NodeAttributes
 
     [SerializeField] protected string functionName;
 
-    private Translation translationHolding;
-
     public Vector3 FunctionExcecutionSpace
     {
         get => functionExcecutionSpace;
@@ -21,12 +19,6 @@ public class FunctionNodeAttributes : NodeAttributes
     {
         get => functionCount;
     }
-
-    private void Awake ()
-    {
-        
-    }
-
     /// <summary>
     /// gives back a functionType based on RoomName and parameter given
     /// </summary>

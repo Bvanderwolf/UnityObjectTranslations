@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public class RotateFunctionNodeAttributes : FunctionNodeAttributes
+﻿public class RotateFunctionNodeAttributes : FunctionNodeAttributes
 {
     public override ITranslatable GetFunctionType (ObjectTranslation translation)
     {
