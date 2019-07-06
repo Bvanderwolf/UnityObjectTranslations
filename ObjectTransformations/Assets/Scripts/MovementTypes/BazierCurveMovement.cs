@@ -45,7 +45,7 @@ public class BazierCurveMovement : BazierCurveTranslation, ITranslatable
         }
     }
 
-    public void Init (ObjectNavigation navigation)
+    public void Init (ObjectNavigation navigation, NodeAttributes node)
     {
         navigation.SetRotationBasedOnMoveDirection();
     }

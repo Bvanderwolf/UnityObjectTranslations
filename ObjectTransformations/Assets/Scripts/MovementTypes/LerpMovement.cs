@@ -45,7 +45,7 @@ public class LerpMovement : LerpableTranslation, ITranslatable
         lerpFunctions = null;
     }
 
-    public void Init (ObjectNavigation navigation)
+    public void Init (ObjectNavigation navigation, NodeAttributes node)
     {
 
     }

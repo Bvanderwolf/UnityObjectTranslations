@@ -40,7 +40,7 @@ public class ObjectNavigation : MonoBehaviour
     private const float LASTPOSITIONCHECK = 0.6f;
     private float currentCheckTimer = 0;
 
-    public uint currentFunctionCount { get; private set; } = 0;
+    public uint CurrentFunctionCount { get; private set; } = 0;
 
     public float ObjectSpeedModifyer
     {
@@ -87,11 +87,11 @@ public class ObjectNavigation : MonoBehaviour
     {
         if (IsNodeReached())
         {
-            NodeAttributes nodeReached = moveTarget.GetComponent<NodeAttributes>();
+            NodeAttributes nodeReached = moveTarget.GetComponent<NodeAttributes>();           
             SetNewTargetBasedOnReachedNode(nodeReached);
             feedback.ClearFunctionNameText();
             moveDirectionBasedRotation = false;
-            OnNodeReached(nodeReached);            
+            OnNodeReached(nodeReached);
         }       
     }
 
@@ -154,7 +154,7 @@ public class ObjectNavigation : MonoBehaviour
                 {
                     functionExcecutionSpace = node.FunctionExcecutionSpace;
                     lastFunctionNode = node.transform;
-                    currentFunctionCount = node.FunctionCount;
+                    CurrentFunctionCount = node.FunctionCount;
 
                     Vector3 targetPos = SetNewRandomFunctionSpaceTarget(_nodeReached.transform.position);
                     moveTarget = Instantiate(nodePrefab, targetPos, Quaternion.identity).GetComponent<Transform>();
@@ -184,9 +184,9 @@ public class ObjectNavigation : MonoBehaviour
             /*if _nodereached = null it means we reached a node created after reaching a functionnode 
             which means we destroy this one and check if we need to move towards a new one based on the currentFunctionCount*/
             Destroy(moveTarget.gameObject);
-            currentFunctionCount--;
+            CurrentFunctionCount--;
 
-            if (currentFunctionCount == 0)
+            if (CurrentFunctionCount == 0)
             {
                 moveTarget = lastFunctionNode.GetComponent<NodeAttributes>().NextNode;
             }

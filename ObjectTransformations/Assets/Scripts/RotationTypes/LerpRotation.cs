@@ -12,7 +12,18 @@ public class LerpRotation : LerpableTranslation, ITranslatable
 
     public void Update (Transform _myTransform, Transform _targetTransform)
     {
-       
+        if (currentTranslateTime < translateTime)
+        {
+            currentTranslateTime += Time.deltaTime * translateSpeed;
+        }
+
+        float t = currentTranslateTime / translateTime;
+
+        //update object based on first lerpFunction in queue
+        if (_targetTransform != null && lerpFunctions.Count != 0)
+        {
+            
+        }
     }
 
     public void Reset (NodeAttributes node, Transform from)
@@ -34,7 +45,7 @@ public class LerpRotation : LerpableTranslation, ITranslatable
         lerpFunctions = null;
     }
 
-    public void Init (ObjectNavigation navigation)
+    public void Init (ObjectNavigation navigation, NodeAttributes node)
     {
 
     }

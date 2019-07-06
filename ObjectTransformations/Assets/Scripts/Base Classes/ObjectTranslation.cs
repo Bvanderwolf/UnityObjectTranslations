@@ -32,7 +32,7 @@ public class ObjectTranslation : MonoBehaviour
         {
             /*if node = null it means we reached a node created after reaching a functionnode and if there are no nodes left we clean up
              else we do nothing since TranslateTypes that aren't standard have queues to switch functionality*/
-            if (navigation.currentFunctionCount == 0)
+            if (navigation.CurrentFunctionCount == 0)
             {
                 currentTranslateType.Clean();
                 if (this is ObjectMovement)
@@ -46,6 +46,6 @@ public class ObjectTranslation : MonoBehaviour
             }
         }
 
-        currentTranslateType.Init(navigation);
+        currentTranslateType.Init(navigation, node);
     }
 }

@@ -54,7 +54,7 @@ public class StandardRotation : Translation, ITranslatable
         navigation = null;
     }
 
-    public void Init(ObjectNavigation navigation)
+    public void Init(ObjectNavigation navigation, NodeAttributes node)
     {
         dynamicRotation = navigation.MoveDirectionBasedRotation;
     }
