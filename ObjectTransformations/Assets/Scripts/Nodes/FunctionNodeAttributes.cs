@@ -2,13 +2,15 @@
 
 public class FunctionNodeAttributes : NodeAttributes
 {
-    [SerializeField] private Vector3 functionExcecutionSpace;
-    [SerializeField] private uint functionCount;
+    [SerializeField] protected Vector3 functionExcecutionSpace;
+    [SerializeField] protected uint functionCount;
 
-    [SerializeField] private float translateSpeed;
-    [SerializeField] private float translateTime;
+    [SerializeField] protected float translateSpeed;
+    [SerializeField] protected float translateTime;
 
-    [SerializeField] private string functionName;
+    [SerializeField] protected string functionName;
+
+    private Translation translationHolding;
 
     public Vector3 FunctionExcecutionSpace
     {
@@ -20,30 +22,26 @@ public class FunctionNodeAttributes : NodeAttributes
         get => functionCount;
     }
 
+    private void Awake ()
+    {
+        
+    }
+
     /// <summary>
     /// gives back a functionType based on RoomName and parameter given
     /// </summary>
     /// <param name="translation">use this keyword to gain a rotationType or a movementType function based on your script</param>
     /// <returns></returns>
-    public ITranslatable GetFunctionType (ObjectTranslation translation)
-    {        
+    public virtual ITranslatable GetFunctionType (ObjectTranslation translation)
+    {
         //translation is of type ObjectRotation
         if (translation is ObjectRotation)
         {
-            switch (functionName)
-            {
-                case "LerpRotation": return new LerpRotation(translateSpeed, translateTime, translation.Navigation.LastTarget.eulerAngles);
-                default: return new StandardRotation(translateSpeed, translateTime, translation.Navigation.LastTarget.eulerAngles);
-            }
+            return new StandardRotation(translateSpeed, translateTime, translation.Navigation.LastTarget.eulerAngles);
         }
         else //translation is of type ObjectMovement
         {
-            switch (functionName)
-            {
-                case "LerpMovement": return new LerpMovement(translateSpeed, translateTime, translation.Navigation.LastTarget.position);
-                case "BazierCurveMovement": return new BazierCurveMovement(translateSpeed, translateTime, translation.Navigation.LastTarget.position);
-                default: return new StandardMovement(translateSpeed, translateTime, translation.Navigation.LastTarget.position);
-            }
+            return new StandardMovement(translateSpeed, translateTime, translation.Navigation.LastTarget.position);
         }
     }
 }
