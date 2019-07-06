@@ -96,10 +96,4 @@ public class ObjectUserFeedback : MonoBehaviour
             StartCoroutine(FlickerLights());
         }
     }
-
-    //private void OnDrawGizmos ()
-    //{
-    //    Gizmos.color = Color.red;
-    //    Gizmos.DrawLine(canvas_Transform.position, canvas_Transform.position + canvas_Transform.forward * 2f);
-    //}
 }

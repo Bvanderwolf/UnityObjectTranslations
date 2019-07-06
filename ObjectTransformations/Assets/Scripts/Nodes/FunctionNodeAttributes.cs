@@ -8,6 +8,8 @@ public class FunctionNodeAttributes : NodeAttributes
     [SerializeField] private float translateSpeed;
     [SerializeField] private float translateTime;
 
+    [SerializeField] private string functionName;
+
     public Vector3 FunctionExcecutionSpace
     {
         get => functionExcecutionSpace;
@@ -24,26 +26,22 @@ public class FunctionNodeAttributes : NodeAttributes
     /// <param name="translation">use this keyword to gain a rotationType or a movementType function based on your script</param>
     /// <returns></returns>
     public ITranslatable GetFunctionType (ObjectTranslation translation)
-    {
-        string parent = transform.parent.parent.name;
-        int index = parent.IndexOf('_');
-        string function = parent.Substring(index + 1, parent.Length - index - 1);
-
+    {        
         //translation is of type ObjectRotation
         if (translation is ObjectRotation)
         {
-            switch (function)
+            switch (functionName)
             {
-                case "LERPROTATION": return new LerpRotation(translateSpeed, translateTime, translation.Navigation.LastTarget.eulerAngles);
+                case "LerpRotation": return new LerpRotation(translateSpeed, translateTime, translation.Navigation.LastTarget.eulerAngles);
                 default: return new StandardRotation(translateSpeed, translateTime, translation.Navigation.LastTarget.eulerAngles);
             }
         }
         else //translation is of type ObjectMovement
         {
-            switch (function)
+            switch (functionName)
             {
-                case "LERPMOVEMENT": return new LerpMovement(translateSpeed, translateTime, translation.Navigation.LastTarget.position);
-                case "BAZIERCURVE": return new BazierCurveMovement(translateSpeed, translateTime, translation.Navigation.LastTarget.position);
+                case "LerpMovement": return new LerpMovement(translateSpeed, translateTime, translation.Navigation.LastTarget.position);
+                case "BazierCurveMovement": return new BazierCurveMovement(translateSpeed, translateTime, translation.Navigation.LastTarget.position);
                 default: return new StandardMovement(translateSpeed, translateTime, translation.Navigation.LastTarget.position);
             }
         }
